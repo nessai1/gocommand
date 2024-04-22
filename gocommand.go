@@ -10,7 +10,7 @@ import (
 	"syscall"
 )
 
-// Command info about command
+// Command info about entered command
 type Command struct {
 	// Name first word of given command line
 	Name string
@@ -20,6 +20,8 @@ type Command struct {
 
 var ErrGracefulExit = fmt.Errorf("graceful exit")
 
+// ListenAndServe reads commands from input and calls handler for each command.
+// If handler returns ErrGracefulExit, ListenAndServe stops without error message; If handler returns err != nil, ListenAndServe stops and print error message; If handler returns nil, ListenAndServe continues to read commands.
 func ListenAndServe(handler func(*Command) error) {
 	for {
 		cmd, err := ReadCommand()
@@ -61,6 +63,7 @@ func ReadCommand() (*Command, error) {
 	}, nil
 }
 
+// AskText prompts user to enter a text, writes prompt to output as an anchor and separates it with a colon
 func AskText(prompt string) (string, error) {
 	fmt.Printf("%s: ", prompt)
 	r := bufio.NewReader(os.Stdin)
@@ -72,6 +75,7 @@ func AskText(prompt string) (string, error) {
 	return strings.Trim(val, "\n"), nil
 }
 
+// AskSecret prompts user to enter a secret, writes prompt to output as an anchor and separates it with a colon
 func AskSecret(prompt string) (string, error) {
 	fmt.Printf("%s: ", prompt)
 	secret, err := term.ReadPassword(syscall.Stdin)

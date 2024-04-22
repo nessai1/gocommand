@@ -6,7 +6,7 @@
 # gocommand
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/nessai1/gocommand)
 ![GitHub](https://img.shields.io/github/license/nessai1/gocommand)
-![Documentation](https://godoc.org/github.com/nessai1/gocommand?status.svg)
+[![GoDoc](https://godoc.org/github.com/nessai1/gocommand?status.svg)](https://godoc.org/github.com/nessai1/gocommand)
 
 **Gocommand** is the simplest way to create a command line interface throw stdin/out for your Go application. It provides a simple way to read commands and arguments from the standard input and execute them.
 
