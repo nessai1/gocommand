@@ -1,6 +1,5 @@
 
-<img src="media/gopher.png" alt="image" height="200" style="margin-right: 30px">
-<img src="media/cmd.png" alt="image" height="200">
+<img src="media/gopher.png" alt="image" height="200" style="margin-right: 50px"><img src="media/cmd.png" alt="image" height="200">
 
 
 
