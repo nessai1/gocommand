@@ -2,6 +2,7 @@ package gocommand
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"golang.org/x/term"
 	"os"
@@ -15,6 +16,30 @@ type Command struct {
 	Name string
 	// Args arguments of written command, separated by spaces
 	Args []string
+}
+
+var ErrGracefulExit = fmt.Errorf("graceful exit")
+
+func ListenAndServe(handler func(*Command) error) {
+	for {
+		cmd, err := ReadCommand()
+		if err != nil {
+			fmt.Printf("\033[31mCannot read command: %s\033[0m\n", err)
+
+			return
+		}
+
+		err = handler(cmd)
+		if err != nil {
+			if errors.Is(err, ErrGracefulExit) {
+				fmt.Println("Bye!")
+			} else {
+				fmt.Printf("\033[31mError: %s\033[0m\n", err)
+			}
+
+			return
+		}
+	}
 }
 
 // ReadCommand prompts user to enter a command to input, writes command anchor to output
